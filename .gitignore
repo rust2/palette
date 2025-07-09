@@ -1,0 +1,46 @@
+docs/
+
+.gradle
+build/
+
+!.idea/codeStyles/
+
+
+## Android Studio and Intellij and Android in general
+/android/libs/armeabi-v7a/
+/android/libs/arm64-v8a/
+/android/libs/x86/
+/android/libs/x86_64/
+/android/gen/
+/android/debug/
+.idea/
+*.ipr
+*.iws
+*.iml
+/android/out/
+com_crashlytics_export_strings.xml
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
