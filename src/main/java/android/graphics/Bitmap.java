@@ -68,13 +68,13 @@ public class Bitmap implements Disposable {
      * Returns in pixels[] a copy of the data in the bitmap. Each value is
      * a packed int representing a non-premultiplied ARGB color in sRGB.
      *
-     * @param pixels   The array to receive the bitmap's colors
-     * @param offset   The first index to write into pixels[]
-     * @param stride   The number of entries in pixels[] to skip between rows
-     * @param x        The x coordinate of the first pixel to read from the bitmap
-     * @param y        The y coordinate of the first pixel to read from the bitmap
-     * @param width    The number of pixels to read from each row
-     * @param height   The number of rows to read
+     * @param pixels The array to receive the bitmap's colors
+     * @param offset The first index to write into pixels[]
+     * @param stride The number of entries in pixels[] to skip between rows
+     * @param x      The x coordinate of the first pixel to read from the bitmap
+     * @param y      The y coordinate of the first pixel to read from the bitmap
+     * @param width  The number of pixels to read from each row
+     * @param height The number of rows to read
      */
     public void getPixels(int @NotNull [] pixels, int offset, int stride, int x, int y, int width, int height) {
         checkRecycled("Can't call getPixels() on a recycled bitmap");
@@ -117,17 +117,17 @@ public class Bitmap implements Disposable {
 
     public static Bitmap createScaledBitmap(Bitmap bitmap, int newWidth, int newHeight, boolean bilinearFilter) {
         Pixmap p = new Pixmap(newWidth, newHeight, bitmap.pixmap.getFormat());
-        if(bilinearFilter) p.setFilter(Pixmap.Filter.BiLinear);
+        if (bilinearFilter) p.setFilter(Pixmap.Filter.BiLinear);
         p.drawPixmap(bitmap.pixmap,
-                            0, 0, bitmap.pixmap.getWidth(), bitmap.pixmap.getHeight(),
-                            0, 0, newWidth, newHeight
+                     0, 0, bitmap.pixmap.getWidth(), bitmap.pixmap.getHeight(),
+                     0, 0, newWidth, newHeight
         );
         return new Bitmap(p);
     }
 
     @SuppressWarnings("all")
     private void checkRecycled(String message) {
-        if(pixmap.isDisposed())
+        if (pixmap.isDisposed())
             throw new GdxRuntimeException(message);
     }
 }

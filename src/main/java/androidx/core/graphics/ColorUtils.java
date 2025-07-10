@@ -59,9 +59,9 @@ public class ColorUtils {
      * <li>outHsl[2] is Lightness [0, 1]</li>
      * </ul>
      *
-     * @param r red component value [0, 255]
-     * @param g green component value [0, 255]
-     * @param b blue component value [0, 255]
+     * @param r      red component value [0, 255]
+     * @param g      green component value [0, 255]
+     * @param b      blue component value [0, 255]
      * @param outHsl 3-element array which holds the resulting HSL components
      */
     public static void RGBToHSL(@Range(from = 0x0, to = 0xFF) int r,
@@ -81,12 +81,15 @@ public class ColorUtils {
         if (max == min) {
             // Monochromatic
             h = s = 0f;
-        } else {
+        }
+        else {
             if (max == rf) {
                 h = ((gf - bf) / deltaMaxMin) % 6f;
-            } else if (max == gf) {
+            }
+            else if (max == gf) {
                 h = ((bf - rf) / deltaMaxMin) + 2f;
-            } else {
+            }
+            else {
                 h = ((rf - gf) / deltaMaxMin) + 4f;
             }
 
@@ -120,8 +123,8 @@ public class ColorUtils {
      * have a contrast value of at least {@code minContrastRatio} when compared to
      * {@code background}.
      *
-     * @param foreground the foreground color
-     * @param background the opaque background color
+     * @param foreground       the foreground color
+     * @param background       the opaque background color
      * @param minContrastRatio the minimum contrast ratio
      * @return the alpha value in the range [0, 255] or -1 if no value could be calculated
      */
@@ -154,7 +157,8 @@ public class ColorUtils {
 
             if (testRatio < minContrastRatio) {
                 minAlpha = testAlpha;
-            } else {
+            }
+            else {
                 maxAlpha = testAlpha;
             }
 
@@ -222,7 +226,7 @@ public class ColorUtils {
      * <li>outXyz[2] is Z [0, 108.883)</li>
      * </ul>
      *
-     * @param color the ARGB color to convert. The alpha component is ignored
+     * @param color  the ARGB color to convert. The alpha component is ignored
      * @param outXyz 3-element array which holds the resulting LAB components
      */
     public static void colorToXYZ(@ColorInt int color, double @NotNull [] outXyz) {
@@ -241,9 +245,9 @@ public class ColorUtils {
      * <li>outXyz[2] is Z [0, 108.883)</li>
      * </ul>
      *
-     * @param r red component value [0, 255]
-     * @param g green component value [0, 255]
-     * @param b blue component value [0, 255]
+     * @param r      red component value [0, 255]
+     * @param g      green component value [0, 255]
+     * @param b      blue component value [0, 255]
      * @param outXyz 3-element array which holds the resulting XYZ components
      */
     public static void RGBToXYZ(@Range(from = 0x0, to = 0xFF) int r,
@@ -286,6 +290,7 @@ public class ColorUtils {
     public static int alpha(int color) {
         return color >>> 24;
     }
+
     /**
      * Return the red component of a color int. This is the same as saying
      * (color >> 16) & 0xFF
@@ -293,6 +298,7 @@ public class ColorUtils {
     public static int red(int color) {
         return (color >> 16) & 0xFF;
     }
+
     /**
      * Return the green component of a color int. This is the same as saying
      * (color >> 8) & 0xFF
@@ -300,6 +306,7 @@ public class ColorUtils {
     public static int green(int color) {
         return (color >> 8) & 0xFF;
     }
+
     /**
      * Return the blue component of a color int. This is the same as saying
      * color & 0xFF
@@ -314,7 +321,8 @@ public class ColorUtils {
      * These component values should be [0..255], but there is no
      * range check performed, so if they are out of range, the
      * returned color is undefined.
-     * @param red  Red component [0..255] of the color
+     *
+     * @param red   Red component [0..255] of the color
      * @param green Green component [0..255] of the color
      * @param blue  Blue component [0..255] of the color
      */
@@ -328,6 +336,7 @@ public class ColorUtils {
      * These component values should be [0..255], but there is no
      * range check performed, so if they are out of range, the
      * returned color is undefined.
+     *
      * @param alpha Alpha component [0..255] of the color
      * @param red   Red component [0..255] of the color
      * @param green Green component [0..255] of the color
