@@ -105,7 +105,7 @@ public class Bitmap implements Disposable {
 
             for (int col = 0; col < width; col++) {
                 int srcX = x + col;
-                int pixel = pixmap.getPixel(srcX, srcY);
+                int pixel = ColorUtils.rgbaToArgb(pixmap.getPixel(srcX, srcY)); // convert from Pixmap's RGBA to android's ARGB
                 pixels[dstIndex + col] = pixel;
             }
         }

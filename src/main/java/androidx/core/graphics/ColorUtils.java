@@ -274,4 +274,15 @@ public class ColorUtils {
         }
         return result;
     }
+
+    public static int rgbaToArgb(int rgbaPixel) {
+        // Shift red and green components right, shift alpha left
+        // (rgba -> argb byte rotation)
+        return (rgbaPixel >>> 8) | (rgbaPixel << 24);
+    }
+
+    public static int argbToRgba(int argbPixel) {
+        // Shift red and green components left, shift alpha right
+        return (argbPixel << 8) | ((argbPixel >> 24) & 0xFF);
+    }
 }
