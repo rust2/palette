@@ -44,7 +44,7 @@ public class ColorUtils {
      * <li>outHsl[2] is Lightness [0, 1]</li>
      * </ul>
      *
-     * @param color the ARGB color to convert. The alpha component is ignored
+     * @param color  the ARGB color to convert. The alpha component is ignored
      * @param outHsl 3-element array which holds the resulting HSL components
      */
     public static void colorToHSL(@ColorInt int color, float @NotNull [] outHsl) {
