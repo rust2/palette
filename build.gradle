@@ -10,12 +10,8 @@ buildscript {
 apply plugin: "java-library"
 //apply plugin: 'maven-publish'
 
-//Obviously, change the next line to match your project name.
-def projectName = 'palette'
-group 'kww.shared'
-version '1.0'
-
-def gdxVersion = "1.13.5"
+group project.property('group')
+version project.property('version')
 
 apply plugin: 'com.vanniktech.maven.publish'
 
