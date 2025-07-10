@@ -17,6 +17,7 @@
 package androidx.palette.graphics;
 
 import android.graphics.Bitmap;
+import android.util.SparseBooleanArray;
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -143,7 +144,7 @@ public final class Palette {
     private final List<Target> mTargets;
 
     private final ObjectMap<Target, Swatch> mSelectedSwatches;
-    private final ObjectMap<Integer, Boolean> mUsedColors;
+    private final SparseBooleanArray mUsedColors;
 
     private final @Nullable Swatch mDominantSwatch;
 
@@ -151,7 +152,7 @@ public final class Palette {
         mSwatches = swatches;
         mTargets = targets;
 
-        mUsedColors = new ObjectMap<>(); // new SparseBooleanArray();
+        mUsedColors = new SparseBooleanArray();
         mSelectedSwatches = new ObjectMap<>();
 
         mDominantSwatch = findDominantSwatch();
@@ -350,7 +351,7 @@ public final class Palette {
         final Swatch maxScoreSwatch = getMaxScoredSwatchForTarget(target);
         if (maxScoreSwatch != null && target.isExclusive()) {
             // If we have a swatch, and the target is exclusive, add the color to the used list
-            mUsedColors.put(maxScoreSwatch.getRgb(), true);
+            mUsedColors.append(maxScoreSwatch.getRgb(), true);
         }
         return maxScoreSwatch;
     }
@@ -376,7 +377,7 @@ public final class Palette {
         final float hsl[] = swatch.getHsl();
         return hsl[1] >= target.getMinimumSaturation() && hsl[1] <= target.getMaximumSaturation()
                 && hsl[2] >= target.getMinimumLightness() && hsl[2] <= target.getMaximumLightness()
-                && !mUsedColors.get(swatch.getRgb(), false);
+                && !mUsedColors.get(swatch.getRgb());
     }
 
     private float generateScore(Swatch swatch, Target target) {
