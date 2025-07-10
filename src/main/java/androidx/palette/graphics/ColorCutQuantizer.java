@@ -16,10 +16,7 @@
 
 package androidx.palette.graphics;
 
-import android.graphics.Color;
-
 import androidx.core.graphics.ColorUtils;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -428,9 +425,9 @@ final class ColorCutQuantizer {
      * Quantized a RGB888 value to have a word width of {@value #QUANTIZE_WORD_WIDTH}.
      */
     private static int quantizeFromRgb888(int color) {
-        int r = modifyWordWidth(Color.red(color), 8, QUANTIZE_WORD_WIDTH);
-        int g = modifyWordWidth(Color.green(color), 8, QUANTIZE_WORD_WIDTH);
-        int b = modifyWordWidth(Color.blue(color), 8, QUANTIZE_WORD_WIDTH);
+        int r = modifyWordWidth(ColorUtils.red(color), 8, QUANTIZE_WORD_WIDTH);
+        int g = modifyWordWidth(ColorUtils.green(color), 8, QUANTIZE_WORD_WIDTH);
+        int b = modifyWordWidth(ColorUtils.blue(color), 8, QUANTIZE_WORD_WIDTH);
         return r << (QUANTIZE_WORD_WIDTH + QUANTIZE_WORD_WIDTH) | g << QUANTIZE_WORD_WIDTH | b;
     }
 
@@ -438,7 +435,7 @@ final class ColorCutQuantizer {
      * Quantized RGB888 values to have a word width of {@value #QUANTIZE_WORD_WIDTH}.
      */
     static int approximateToRgb888(int r, int g, int b) {
-        return Color.rgb(modifyWordWidth(r, QUANTIZE_WORD_WIDTH, 8),
+        return ColorUtils.rgb(modifyWordWidth(r, QUANTIZE_WORD_WIDTH, 8),
                 modifyWordWidth(g, QUANTIZE_WORD_WIDTH, 8),
                 modifyWordWidth(b, QUANTIZE_WORD_WIDTH, 8));
     }

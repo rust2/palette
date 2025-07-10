@@ -17,16 +17,12 @@
 package androidx.palette.graphics;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
-
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
-
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ObjectMap;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
-
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -437,9 +433,9 @@ public final class Palette {
         private float @Nullable [] mHsl;
 
         public Swatch(@ColorInt int color, int population) {
-            mRed = Color.red(color);
-            mGreen = Color.green(color);
-            mBlue = Color.blue(color);
+            mRed = ColorUtils.red(color);
+            mGreen = ColorUtils.green(color);
+            mBlue = ColorUtils.blue(color);
             mRgb = color;
             mPopulation = population;
         }
@@ -497,27 +493,27 @@ public final class Palette {
             if (!mGeneratedTextColors) {
                 // First check white, as most colors will be dark
                 final int lightBodyAlpha = ColorUtils.calculateMinimumAlpha(
-                        Color.WHITE, mRgb, MIN_CONTRAST_BODY_TEXT);
+                        ColorUtils.WHITE, mRgb, MIN_CONTRAST_BODY_TEXT);
                 final int lightTitleAlpha = ColorUtils.calculateMinimumAlpha(
-                        Color.WHITE, mRgb, MIN_CONTRAST_TITLE_TEXT);
+                        ColorUtils.WHITE, mRgb, MIN_CONTRAST_TITLE_TEXT);
 
                 if (lightBodyAlpha != -1 && lightTitleAlpha != -1) {
                     // If we found valid light values, use them and return
-                    mBodyTextColor = ColorUtils.setAlphaComponent(Color.WHITE, lightBodyAlpha);
-                    mTitleTextColor = ColorUtils.setAlphaComponent(Color.WHITE, lightTitleAlpha);
+                    mBodyTextColor = ColorUtils.setAlphaComponent(ColorUtils.WHITE, lightBodyAlpha);
+                    mTitleTextColor = ColorUtils.setAlphaComponent(ColorUtils.WHITE, lightTitleAlpha);
                     mGeneratedTextColors = true;
                     return;
                 }
 
                 final int darkBodyAlpha = ColorUtils.calculateMinimumAlpha(
-                        Color.BLACK, mRgb, MIN_CONTRAST_BODY_TEXT);
+                        ColorUtils.BLACK, mRgb, MIN_CONTRAST_BODY_TEXT);
                 final int darkTitleAlpha = ColorUtils.calculateMinimumAlpha(
-                        Color.BLACK, mRgb, MIN_CONTRAST_TITLE_TEXT);
+                        ColorUtils.BLACK, mRgb, MIN_CONTRAST_TITLE_TEXT);
 
                 if (darkBodyAlpha != -1 && darkTitleAlpha != -1) {
                     // If we found valid dark values, use them and return
-                    mBodyTextColor = ColorUtils.setAlphaComponent(Color.BLACK, darkBodyAlpha);
-                    mTitleTextColor = ColorUtils.setAlphaComponent(Color.BLACK, darkTitleAlpha);
+                    mBodyTextColor = ColorUtils.setAlphaComponent(ColorUtils.BLACK, darkBodyAlpha);
+                    mTitleTextColor = ColorUtils.setAlphaComponent(ColorUtils.BLACK, darkTitleAlpha);
                     mGeneratedTextColors = true;
                     return;
                 }
@@ -525,11 +521,11 @@ public final class Palette {
                 // If we reach here then we can not find title and body values which use the same
                 // lightness, we need to use mismatched values
                 mBodyTextColor = lightBodyAlpha != -1
-                                 ? ColorUtils.setAlphaComponent(Color.WHITE, lightBodyAlpha)
-                                 : ColorUtils.setAlphaComponent(Color.BLACK, darkBodyAlpha);
+                                 ? ColorUtils.setAlphaComponent(ColorUtils.WHITE, lightBodyAlpha)
+                                 : ColorUtils.setAlphaComponent(ColorUtils.BLACK, darkBodyAlpha);
                 mTitleTextColor = lightTitleAlpha != -1
-                                  ? ColorUtils.setAlphaComponent(Color.WHITE, lightTitleAlpha)
-                                  : ColorUtils.setAlphaComponent(Color.BLACK, darkTitleAlpha);
+                                  ? ColorUtils.setAlphaComponent(ColorUtils.WHITE, lightTitleAlpha)
+                                  : ColorUtils.setAlphaComponent(ColorUtils.BLACK, darkTitleAlpha);
                 mGeneratedTextColors = true;
             }
         }

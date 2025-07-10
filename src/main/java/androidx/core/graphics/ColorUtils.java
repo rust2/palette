@@ -1,6 +1,5 @@
 package androidx.core.graphics;
 
-import android.graphics.Color;
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import org.jetbrains.annotations.NotNull;
@@ -18,18 +17,18 @@ public class ColorUtils {
      * Composite two potentially translucent colors over each other and returns the result.
      */
     public static int compositeColors(@ColorInt int foreground, @ColorInt int background) {
-        int bgAlpha = Color.alpha(background);
-        int fgAlpha = Color.alpha(foreground);
+        int bgAlpha = alpha(background);
+        int fgAlpha = alpha(foreground);
         int a = compositeAlpha(fgAlpha, bgAlpha);
 
-        int r = compositeComponent(Color.red(foreground), fgAlpha,
-                                   Color.red(background), bgAlpha, a);
-        int g = compositeComponent(Color.green(foreground), fgAlpha,
-                                   Color.green(background), bgAlpha, a);
-        int b = compositeComponent(Color.blue(foreground), fgAlpha,
-                                   Color.blue(background), bgAlpha, a);
+        int r = compositeComponent(red(foreground), fgAlpha,
+                                   red(background), bgAlpha, a);
+        int g = compositeComponent(green(foreground), fgAlpha,
+                                   green(background), bgAlpha, a);
+        int b = compositeComponent(blue(foreground), fgAlpha,
+                                   blue(background), bgAlpha, a);
 
-        return Color.argb(a, r, g, b);
+        return argb(a, r, g, b);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -49,7 +48,7 @@ public class ColorUtils {
      * @param outHsl 3-element array which holds the resulting HSL components
      */
     public static void colorToHSL(@ColorInt int color, float @NotNull [] outHsl) {
-        RGBToHSL(Color.red(color), Color.green(color), Color.blue(color), outHsl);
+        RGBToHSL(red(color), green(color), blue(color), outHsl);
     }
 
     /**
@@ -128,7 +127,7 @@ public class ColorUtils {
      */
     public static int calculateMinimumAlpha(@ColorInt int foreground, @ColorInt int background,
                                             float minContrastRatio) {
-        if (Color.alpha(background) != 255) {
+        if (alpha(background) != 255) {
             throw new IllegalArgumentException("background can not be translucent: #"
                                                        + Integer.toHexString(background));
         }
@@ -174,11 +173,11 @@ public class ColorUtils {
      * <a href="http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef">here</a>.
      */
     public static double calculateContrast(@ColorInt int foreground, @ColorInt int background) {
-        if (Color.alpha(background) != 255) {
+        if (alpha(background) != 255) {
             throw new IllegalArgumentException("background can not be translucent: #"
                                                        + Integer.toHexString(background));
         }
-        if (Color.alpha(foreground) < 255) {
+        if (alpha(foreground) < 255) {
             // If the foreground is translucent, composite the foreground over the background
             foreground = compositeColors(foreground, background);
         }
@@ -227,7 +226,7 @@ public class ColorUtils {
      * @param outXyz 3-element array which holds the resulting LAB components
      */
     public static void colorToXYZ(@ColorInt int color, double @NotNull [] outXyz) {
-        RGBToXYZ(Color.red(color), Color.green(color), Color.blue(color), outXyz);
+        RGBToXYZ(red(color), green(color), blue(color), outXyz);
     }
 
     /**
@@ -273,6 +272,70 @@ public class ColorUtils {
             TEMP_ARRAY.set(result);
         }
         return result;
+    }
+
+    /// Merged from android.graphics.Color
+
+    public static final int WHITE = 0xFFFFFFFF;
+    public static final int BLACK = 0x00000000;
+
+    /**
+     * Return the alpha component of a color int. This is the same as saying
+     * color >>> 24
+     */
+    public static int alpha(int color) {
+        return color >>> 24;
+    }
+    /**
+     * Return the red component of a color int. This is the same as saying
+     * (color >> 16) & 0xFF
+     */
+    public static int red(int color) {
+        return (color >> 16) & 0xFF;
+    }
+    /**
+     * Return the green component of a color int. This is the same as saying
+     * (color >> 8) & 0xFF
+     */
+    public static int green(int color) {
+        return (color >> 8) & 0xFF;
+    }
+    /**
+     * Return the blue component of a color int. This is the same as saying
+     * color & 0xFF
+     */
+    public static int blue(int color) {
+        return color & 0xFF;
+    }
+
+    /**
+     * Return a color-int from red, green, blue components.
+     * The alpha component is implicity 255 (fully opaque).
+     * These component values should be [0..255], but there is no
+     * range check performed, so if they are out of range, the
+     * returned color is undefined.
+     * @param red  Red component [0..255] of the color
+     * @param green Green component [0..255] of the color
+     * @param blue  Blue component [0..255] of the color
+     */
+    @ColorInt
+    public static int rgb(int red, int green, int blue) {
+        return (0xFF << 24) | (red << 16) | (green << 8) | blue;
+    }
+
+    /**
+     * Return a color-int from alpha, red, green, blue components.
+     * These component values should be [0..255], but there is no
+     * range check performed, so if they are out of range, the
+     * returned color is undefined.
+     * @param alpha Alpha component [0..255] of the color
+     * @param red   Red component [0..255] of the color
+     * @param green Green component [0..255] of the color
+     * @param blue  Blue component [0..255] of the color
+     */
+    @ColorInt
+    public static int argb(int alpha, int red, int green, int blue) {
+        return (alpha << 24) | (red << 16) | (green << 8) | blue;
     }
 
     public static int rgbaToArgb(int rgbaPixel) {
