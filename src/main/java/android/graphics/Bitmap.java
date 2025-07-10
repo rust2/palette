@@ -10,13 +10,34 @@ import org.jetbrains.annotations.NotNull;
 public class Bitmap implements Disposable {
     private Pixmap pixmap;
 
+    // todo: I'm not sure if caller can dispose Texture right after creating Bitmap
+    /** @deprecated use static methods instead. */
+    @Deprecated
     public Bitmap(Texture t) {
         t.getTextureData().prepare();
         pixmap = t.getTextureData().consumePixmap();
     }
 
+    /** @deprecated use static methods instead. */
+    @Deprecated
     public Bitmap(Pixmap p) {
         pixmap = p;
+    }
+
+    public static Bitmap of(Texture t) {
+        return new Bitmap(t);
+    }
+
+    /** Returns new Bitmap initialized with {@link Pixmap p}. New bitmap will share pixmap instance */
+    public static Bitmap of(Pixmap p) {
+        return new Bitmap(p);
+    }
+
+    /** Returns new Bitmap initialized with copy of {@link Pixmap p}. You will have to dispose bitmap and pixmap separately */
+    public static Bitmap ofPixmapCopy(Pixmap p) {
+        Pixmap p1 = new Pixmap(p.getWidth(), p.getHeight(), p.getFormat());
+        p1.drawPixmap(p, 0, 0);
+        return new Bitmap(p1);
     }
 
     public int getWidth() {
