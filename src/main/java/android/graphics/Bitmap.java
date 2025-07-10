@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import org.jetbrains.annotations.NotNull;
 
-public class Bitmap implements Disposable {
+public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
 
     // todo: I'm not sure if caller can dispose Texture right after creating Bitmap
@@ -129,5 +129,10 @@ public class Bitmap implements Disposable {
     private void checkRecycled(String message) {
         if (pixmap.isDisposed())
             throw new GdxRuntimeException(message);
+    }
+
+    @Override
+    public void close() {
+        dispose();
     }
 }
