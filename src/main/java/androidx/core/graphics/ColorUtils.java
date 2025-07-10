@@ -36,6 +36,11 @@ public class ColorUtils {
         return amount < low ? low : Math.min(amount, high);
     }
 
+    @SuppressWarnings("SameParameterValue")
+    private static int constrain(int amount, int low, int high) {
+        return amount < low ? low : Math.min(amount, high);
+    }
+
     /**
      * Convert the ARGB color to its HSL (hue-saturation-lightness) components.
      * <ul>
@@ -49,6 +54,67 @@ public class ColorUtils {
      */
     public static void colorToHSL(@ColorInt int color, float @NotNull [] outHsl) {
         RGBToHSL(red(color), green(color), blue(color), outHsl);
+    }
+
+    /**
+     * Convert HSL (hue-saturation-lightness) components to a RGB color.
+     * <ul>
+     * <li>hsl[0] is Hue [0, 360)</li>
+     * <li>hsl[1] is Saturation [0, 1]</li>
+     * <li>hsl[2] is Lightness [0, 1]</li>
+     * </ul>
+     * If hsv values are out of range, they are pinned.
+     *
+     * @param hsl 3-element array which holds the input HSL components
+     * @return the resulting RGB color
+     */
+    @ColorInt
+    public static int HSLToColor(float @NotNull [] hsl) {
+        final float h = hsl[0];
+        final float s = hsl[1];
+        final float l = hsl[2];
+        final float c = (1f - Math.abs(2 * l - 1f)) * s;
+        final float m = l - 0.5f * c;
+        final float x = c * (1f - Math.abs((h / 60f % 2f) - 1f));
+        final int hueSegment = (int) h / 60;
+        int r = 0, g = 0, b = 0;
+        switch (hueSegment) {
+            case 0:
+                r = Math.round(255 * (c + m));
+                g = Math.round(255 * (x + m));
+                b = Math.round(255 * m);
+                break;
+            case 1:
+                r = Math.round(255 * (x + m));
+                g = Math.round(255 * (c + m));
+                b = Math.round(255 * m);
+                break;
+            case 2:
+                r = Math.round(255 * m);
+                g = Math.round(255 * (c + m));
+                b = Math.round(255 * (x + m));
+                break;
+            case 3:
+                r = Math.round(255 * m);
+                g = Math.round(255 * (x + m));
+                b = Math.round(255 * (c + m));
+                break;
+            case 4:
+                r = Math.round(255 * (x + m));
+                g = Math.round(255 * m);
+                b = Math.round(255 * (c + m));
+                break;
+            case 5:
+            case 6:
+                r = Math.round(255 * (c + m));
+                g = Math.round(255 * m);
+                b = Math.round(255 * (x + m));
+                break;
+        }
+        r = constrain(r, 0, 255);
+        g = constrain(g, 0, 255);
+        b = constrain(b, 0, 255);
+        return rgb(r, g, b);
     }
 
     /**
