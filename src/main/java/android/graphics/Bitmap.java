@@ -1,11 +1,10 @@
 package android.graphics;
 
-import androidx.annotation.ColorInt;
+import androidx.core.graphics.ColorUtils;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 public class Bitmap implements Disposable {

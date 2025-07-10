@@ -3,8 +3,8 @@ package android.graphics;
 import androidx.annotation.ColorInt;
 
 public class Color {
-    public static final int WHITE = com.badlogic.gdx.graphics.Color.WHITE.toIntBits();
-    public static final int BLACK = com.badlogic.gdx.graphics.Color.BLACK.toIntBits();
+    public static final int WHITE = 0xFFFFFFFF;
+    public static final int BLACK = 0x00000000;
 
     /**
      * Return the alpha component of a color int. This is the same as saying
