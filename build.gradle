@@ -75,9 +75,6 @@ javadoc {
 }
 
 apply plugin: 'idea'
-// This makes IDEA avoid including generated JavaDocs (which are HTML files) in any search results.
-// If you changed where JavaDocs are published above, you should change the next line, too.
-idea.module.excludeDirs += [file("docs/")]
 
 jar {
     archiveBaseName.set(projectName)
@@ -115,34 +112,3 @@ dependencies {
 test {
     useJUnit()
 }
-
-//task sourcesJar(type: Jar) {
-//    archiveClassifier.set('sources')
-//    from sourceSets.main.allSource
-//}
-//
-//task javadocJar(type: Jar) {
-//    archiveClassifier.set('javadoc')
-//    from javadoc.destinationDir
-//}
-//
-//publishing {
-//    publications {
-//        mavenLocal(MavenPublication) {
-//            groupId = group // your group ID
-//            artifactId = 'palette' // your artifact name
-//            version = '1.0' // version number
-//
-//            // If using java-library, this includes classes.jar
-//            artifact sourcesJar // optional: sources
-//            artifact javadocJar // optional: Javadoc
-//
-//            // Or explicitly define the artifact:
-//            // artifact("$buildDir/outputs/aar/yourlibrary-release.aar") // for Android AARs
-//        }
-//    }
-//
-//    repositories {
-//        mavenLocal() // publishes to local .m2 repo
-//    }
-//}
