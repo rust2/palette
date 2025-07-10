@@ -7,6 +7,10 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class just connects libGDX images with android palette implementation.
+ * Here are only required methods for palette to work
+ */
 public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
 
