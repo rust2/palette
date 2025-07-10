@@ -108,8 +108,17 @@ dependencies {
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
     // JetBrains Annotations
     implementation 'org.jetbrains:annotations:23.1.0'
+    // tests (there are some old junit and mockito but it should be sufficient to work with)
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.mockito:mockito-all:1.9.5"
+    testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
 
+test {
+    useJUnit()
+}
 
 //task sourcesJar(type: Jar) {
 //    archiveClassifier.set('sources')
