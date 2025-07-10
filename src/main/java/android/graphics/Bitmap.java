@@ -132,8 +132,8 @@ public class Bitmap implements Disposable {
         Pixmap p = new Pixmap(newWidth, newHeight, bitmap.pixmap.getFormat());
         if(bilinearFilter) p.setFilter(Pixmap.Filter.BiLinear);
         p.drawPixmap(bitmap.pixmap,
-                            0, 0, newWidth, newHeight,
-                            0, 0, p.getWidth(), p.getHeight()
+                            0, 0, bitmap.pixmap.getWidth(), bitmap.pixmap.getHeight(),
+                            0, 0, newWidth, newHeight
         );
         return new Bitmap(p);
     }
