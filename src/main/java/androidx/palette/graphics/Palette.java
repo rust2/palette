@@ -59,7 +59,7 @@ import java.util.List;
  * // Synchronous
  * Palette p = Palette.from(bitmap).generate();
  *
- * // Asynchronous
+ * // Asynchronous <b>(not ported yet.)</b>
  * Palette.from(bitmap).generate(new PaletteAsyncListener() {
  *     public void onGenerated(Palette p) {
  *         // Use generated instance
@@ -69,6 +69,7 @@ import java.util.List;
  */
 public final class Palette {
 
+    // todo: implement async load
 //    /**
 //     * Listener to be used with {@link #generateAsync(Bitmap, PaletteAsyncListener)} or
 //     * {@link #generateAsync(Bitmap, int, PaletteAsyncListener)}
@@ -123,6 +124,7 @@ public final class Palette {
         return from(bitmap).maximumColorCount(numColors).generate();
     }
 
+    // todo: implement async load
 //    /**
 //     * @deprecated Use {@link Builder} to generate the Palette.
 //     */
@@ -796,6 +798,7 @@ public final class Palette {
             return p;
         }
 
+        // todo: implement async load
 //        /**
 //         * Generate the {@link Palette} asynchronously. The provided listener's
 //         * {@link PaletteAsyncListener#onGenerated} method will be called with the palette when
