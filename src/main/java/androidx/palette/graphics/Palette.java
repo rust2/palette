@@ -126,8 +126,7 @@ public final class Palette {
 //     * @deprecated Use {@link Builder} to generate the Palette.
 //     */
 //    @Deprecated
-//    public static @NotNull AsyncTask<Bitmap, Void, Palette> generateAsync(
-//            @NotNull Bitmap bitmap, @NotNull PaletteAsyncListener listener) {
+//    public static @NotNull AsyncTask<Bitmap, Void, Palette> generateAsync(@NotNull Bitmap bitmap, @NotNull PaletteAsyncListener listener) {
 //        return from(bitmap).generate(listener);
 //    }
 
@@ -135,8 +134,7 @@ public final class Palette {
 //     * @deprecated Use {@link Builder} to generate the Palette.
 //     */
 //    @Deprecated
-//    public static @NotNull AsyncTask<Bitmap, Void, Palette> generateAsync(
-//            @NotNull Bitmap bitmap, int numColors, @NotNull PaletteAsyncListener listener) {
+//    public static @NotNull AsyncTask<Bitmap, Void, Palette> generateAsync(@NotNull Bitmap bitmap, int numColors, @NotNull PaletteAsyncListener listener) {
 //        return from(bitmap).maximumColorCount(numColors).generate(listener);
 //    }
 
@@ -806,8 +804,7 @@ public final class Palette {
 //         * Kotlin concurrency utilities</a> to call {@link #generate()} instead.
 //         */
 //        @Deprecated
-//        public android.os.@NotNull AsyncTask<Bitmap, Void, Palette> generate(
-//                final @NotNull PaletteAsyncListener listener) {
+//        public android.os.@NotNull AsyncTask<Bitmap, Void, Palette> generate(final @NotNull PaletteAsyncListener listener) {
 //            Preconditions.checkNotNull(listener);
 //
 //            return new android.os.AsyncTask<Bitmap, Void, Palette>() {
