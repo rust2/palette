@@ -63,17 +63,13 @@ public class Bitmap implements Disposable, AutoCloseable {
     }
 
     //region Disposable
-    public void recycle() {
-        dispose();
-    }
-
-    public boolean isRecycled() {
+    public boolean isDisposed() {
         return pixmap.isDisposed();
     }
 
     @Override
     public void dispose() {
-        if (ownsPixmap && !pixmap.isDisposed())
+        if (ownsPixmap && !isDisposed())
             pixmap.dispose();
     }
     //endregion Disposable
@@ -91,7 +87,8 @@ public class Bitmap implements Disposable, AutoCloseable {
      * @param height The number of rows to read
      */
     public void getPixels(int @NotNull [] pixels, int offset, int stride, int x, int y, int width, int height) {
-        checkRecycled("Can't call getPixels() on a recycled bitmap");
+        if (pixmap.isDisposed())
+            throw new GdxRuntimeException("Can't call getPixels() on a recycled bitmap");
 
         if (width == 0 || height == 0) {
             return; // nothing to do
@@ -173,12 +170,6 @@ public class Bitmap implements Disposable, AutoCloseable {
                      0, 0, newWidth, newHeight
         );
         return new Bitmap(p, true);
-    }
-
-    @SuppressWarnings("all")
-    private void checkRecycled(String message) {
-        if (pixmap.isDisposed())
-            throw new GdxRuntimeException(message);
     }
 
     @Override

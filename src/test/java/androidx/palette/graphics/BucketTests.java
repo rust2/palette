@@ -37,7 +37,7 @@ public class BucketTests {
     public void testSourceBitmapNotRecycled() {
         try (Bitmap sample = TestUtils.loadSampleBitmap()) {
             Palette.from(sample).generate();
-            assertFalse(sample.isRecycled());
+            assertFalse(sample.isDisposed());
         }
     }
 

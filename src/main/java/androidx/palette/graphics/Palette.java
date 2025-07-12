@@ -582,7 +582,7 @@ public final class Palette {
          * Construct a new {@link Builder} using a source {@link Bitmap}
          */
         public Builder(@NotNull Bitmap bitmap) {
-            if (bitmap == null || bitmap.isRecycled()) {
+            if (bitmap == null || bitmap.isDisposed()) {
                 throw new IllegalArgumentException("Bitmap is not valid");
             }
             mFilters.add(DEFAULT_FILTER);
@@ -771,7 +771,7 @@ public final class Palette {
 
                 // If created a new bitmap, recycle it
                 if (bitmap != mBitmap) {
-                    bitmap.recycle();
+                    bitmap.dispose();
                 }
 
                 swatches = quantizer.getQuantizedColors();
