@@ -16,20 +16,16 @@ public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
     private final boolean ownsPixmap;
 
-    // todo: I'm not sure if caller can dispose Texture right after creating Bitmap
-    private Bitmap(Texture t) {
-        t.getTextureData().prepare();
-        this.pixmap = t.getTextureData().consumePixmap();
-        this.ownsPixmap = false;
-    }
-
     private Bitmap(Pixmap p, boolean ownsPixmap) {
         this.pixmap = p;
         this.ownsPixmap = ownsPixmap;
     }
 
     public static Bitmap of(Texture t) {
-        return new Bitmap(t);
+        t.getTextureData().prepare();
+        Pixmap p = t.getTextureData().consumePixmap();
+        // todo: I'm not sure if we have to dispose consumed Pixmap
+        return new Bitmap(p, true);
     }
 
     /**
