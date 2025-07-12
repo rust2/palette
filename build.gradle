@@ -12,6 +12,7 @@ apply plugin: "java-library"
 
 group project.property('group')
 version project.property('version')
+def projectName = rootProject.name
 
 apply plugin: 'com.vanniktech.maven.publish'
 
