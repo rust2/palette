@@ -32,12 +32,26 @@ public class Bitmap implements Disposable, AutoCloseable {
         return new Bitmap(t);
     }
 
-    /** Returns new Bitmap initialized with {@link Pixmap p}. New bitmap will share pixmap instance */
+    /**
+     * Returns new Bitmap initialized with {@link Pixmap p}.<br>
+     * New bitmap will share pixmap instance
+     */
     public static Bitmap of(Pixmap p) {
         return new Bitmap(p, false);
     }
 
-    /** Returns new Bitmap initialized with copy of {@link Pixmap p}. You will have to dispose bitmap and pixmap separately */
+    /**
+     * Returns new Bitmap initialized with {@link Pixmap p}.
+     * @param ownsPixmap if {@code true}, {@link Bitmap#dispose()} will dispose Pixmap instance as well
+     */
+    public static Bitmap of(Pixmap p, boolean ownsPixmap) {
+        return new Bitmap(p, ownsPixmap);
+    }
+
+    /**
+     * Returns new Bitmap initialized with copy of {@link Pixmap p}.<br>
+     * You will have to dispose bitmap and pixmap separately
+     */
     public static Bitmap ofPixmapCopy(Pixmap p) {
         Pixmap p1 = new Pixmap(p.getWidth(), p.getHeight(), p.getFormat());
         p1.drawPixmap(p, 0, 0);
