@@ -15,16 +15,12 @@ public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
 
     // todo: I'm not sure if caller can dispose Texture right after creating Bitmap
-    /** @deprecated use static methods instead. */
-    @Deprecated
-    public Bitmap(Texture t) {
+    private Bitmap(Texture t) {
         t.getTextureData().prepare();
         pixmap = t.getTextureData().consumePixmap();
     }
 
-    /** @deprecated use static methods instead. */
-    @Deprecated
-    public Bitmap(Pixmap p) {
+    private Bitmap(Pixmap p) {
         pixmap = p;
     }
 
