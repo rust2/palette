@@ -102,20 +102,59 @@ public class Bitmap implements Disposable, AutoCloseable {
         }
     }
 
+    /**
+     * Shared code to check for illegal arguments passed to getPixels()
+     * or setPixels()
+     *
+     * @param x left edge of the area of pixels to access
+     * @param y top edge of the area of pixels to access
+     * @param width width of the area of pixels to access
+     * @param height height of the area of pixels to access
+     * @param offset offset into pixels[] array
+     * @param stride number of elements in pixels[] between each logical row
+     * @param pixels array to hold the area of pixels being accessed
+     */
     private void checkPixelsAccess(int x, int y, int width, int height,
-                                   int offset, int stride, int[] pixels) {
-        if (x < 0 || y < 0 || width <= 0 || height <= 0 ||
-                x + width > getWidth() || y + height > getHeight()) {
-            throw new IllegalArgumentException("x or y or width or height exceed bitmap bounds.");
+                                   int offset, int stride, int pixels[]) {
+        checkXYSign(x, y);
+        if (width < 0) {
+            throw new IllegalArgumentException("width must be >= 0");
         }
-
+        if (height < 0) {
+            throw new IllegalArgumentException("height must be >= 0");
+        }
+        if (x + width > getWidth()) {
+            throw new IllegalArgumentException(
+                    "x + width must be <= bitmap.width()");
+        }
+        if (y + height > getHeight()) {
+            throw new IllegalArgumentException(
+                    "y + height must be <= bitmap.height()");
+        }
         if (Math.abs(stride) < width) {
             throw new IllegalArgumentException("abs(stride) must be >= width");
         }
+        int lastScanline = offset + (height - 1) * stride;
+        int length = pixels.length;
+        if (offset < 0 || (offset + width > length)
+                || lastScanline < 0
+                || (lastScanline + width > length)) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
 
-        int requiredSize = offset + ((height - 1) * Math.abs(stride)) + width;
-        if (pixels.length < requiredSize) {
-            throw new ArrayIndexOutOfBoundsException("pixels array is too small (" + pixels.length + " < " + requiredSize + ")");
+    /**
+     * Common code for checking that x and y are >= 0
+     *
+     * @param x x coordinate to ensure is >= 0
+     * @param y y coordinate to ensure is >= 0
+     */
+    private static void checkXYSign(int x, int y) {
+        if (x < 0) {
+            throw new IllegalArgumentException("x must be >= 0");
+        }
+        if (y < 0) {
+            throw new IllegalArgumentException("y must be >= 0");
         }
     }
 
