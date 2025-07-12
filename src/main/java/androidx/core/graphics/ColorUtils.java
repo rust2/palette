@@ -5,6 +5,10 @@ import androidx.annotation.FloatRange;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
+/**
+ * This class operates on colors represented as integers with ARGB format!<br>
+ * Be sure to use {@link ColorUtils#argbToRgba(int)} and {@link ColorUtils#rgbaToArgb(int)} in case of manual interfacing with this class
+ */
 public class ColorUtils {
     private static final int MIN_ALPHA_SEARCH_MAX_ITERATIONS = 10;
     private static final int MIN_ALPHA_SEARCH_PRECISION = 1;
