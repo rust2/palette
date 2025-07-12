@@ -9,7 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * This class just connects libGDX images with android palette implementation.
- * Here are only required methods for palette to work
+ * Here are contained only required methods for palette to work
+ * @implNote This implementation is bound to {@link Pixmap}
  */
 public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
