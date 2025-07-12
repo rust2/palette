@@ -102,6 +102,7 @@ public class Bitmap implements Disposable, AutoCloseable {
             int dstIndex = offset + row * stride;
 
             for (int col = 0; col < width; col++) {
+                // todo: use pixmap.getPixels all pixels instead of getting pixel be pixel in the loop???
                 int srcX = x + col;
                 int pixel = ColorUtils.rgbaToArgb(pixmap.getPixel(srcX, srcY)); // convert from Pixmap's RGBA to android's ARGB
                 pixels[dstIndex + col] = pixel;
