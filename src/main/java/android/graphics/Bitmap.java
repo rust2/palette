@@ -114,8 +114,7 @@ public class Bitmap implements Disposable, AutoCloseable {
      * @param stride number of elements in pixels[] between each logical row
      * @param pixels array to hold the area of pixels being accessed
      */
-    private void checkPixelsAccess(int x, int y, int width, int height,
-                                   int offset, int stride, int pixels[]) {
+    private void checkPixelsAccess(int x, int y, int width, int height, int offset, int stride, int pixels[]) {
         checkXYSign(x, y);
         if (width < 0) {
             throw new IllegalArgumentException("width must be >= 0");
@@ -124,12 +123,10 @@ public class Bitmap implements Disposable, AutoCloseable {
             throw new IllegalArgumentException("height must be >= 0");
         }
         if (x + width > getWidth()) {
-            throw new IllegalArgumentException(
-                    "x + width must be <= bitmap.width()");
+            throw new IllegalArgumentException("x + width must be <= bitmap.width()");
         }
         if (y + height > getHeight()) {
-            throw new IllegalArgumentException(
-                    "y + height must be <= bitmap.height()");
+            throw new IllegalArgumentException("y + height must be <= bitmap.height()");
         }
         if (Math.abs(stride) < width) {
             throw new IllegalArgumentException("abs(stride) must be >= width");
