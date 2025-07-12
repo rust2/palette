@@ -13,15 +13,18 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Bitmap implements Disposable, AutoCloseable {
     private Pixmap pixmap;
+    private final boolean ownsPixmap;
 
     // todo: I'm not sure if caller can dispose Texture right after creating Bitmap
     private Bitmap(Texture t) {
         t.getTextureData().prepare();
-        pixmap = t.getTextureData().consumePixmap();
+        this.pixmap = t.getTextureData().consumePixmap();
+        this.ownsPixmap = false;
     }
 
-    private Bitmap(Pixmap p) {
-        pixmap = p;
+    private Bitmap(Pixmap p, boolean ownsPixmap) {
+        this.pixmap = p;
+        this.ownsPixmap = ownsPixmap;
     }
 
     public static Bitmap of(Texture t) {
@@ -30,14 +33,14 @@ public class Bitmap implements Disposable, AutoCloseable {
 
     /** Returns new Bitmap initialized with {@link Pixmap p}. New bitmap will share pixmap instance */
     public static Bitmap of(Pixmap p) {
-        return new Bitmap(p);
+        return new Bitmap(p, false);
     }
 
     /** Returns new Bitmap initialized with copy of {@link Pixmap p}. You will have to dispose bitmap and pixmap separately */
     public static Bitmap ofPixmapCopy(Pixmap p) {
         Pixmap p1 = new Pixmap(p.getWidth(), p.getHeight(), p.getFormat());
         p1.drawPixmap(p, 0, 0);
-        return new Bitmap(p1);
+        return new Bitmap(p1, true);
     }
 
     public int getWidth() {
@@ -59,7 +62,7 @@ public class Bitmap implements Disposable, AutoCloseable {
 
     @Override
     public void dispose() {
-        if (!pixmap.isDisposed())
+        if (ownsPixmap && !pixmap.isDisposed())
             pixmap.dispose();
     }
     //endregion Disposable
@@ -158,7 +161,7 @@ public class Bitmap implements Disposable, AutoCloseable {
                      0, 0, bitmap.pixmap.getWidth(), bitmap.pixmap.getHeight(),
                      0, 0, newWidth, newHeight
         );
-        return new Bitmap(p);
+        return new Bitmap(p, true);
     }
 
     @SuppressWarnings("all")
